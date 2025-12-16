@@ -40,7 +40,7 @@ export default function Signup() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "spring", stiffness: 300 },
+      transition: { type: "spring" as const, stiffness: 300 },
     },
   };
 

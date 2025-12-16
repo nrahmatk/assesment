@@ -22,11 +22,13 @@ const Home: React.FC = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const [userRes, destinationsRes, favoritePlacesRes] = await Promise.all([
-          axios.get("/api/user"),
-          axios.get("/api/destinations"),
-          axios.get("/api/places"),
-        ]);
+        const [userRes, destinationsRes, favoritePlacesRes] = await Promise.all(
+          [
+            axios.get("/api/user"),
+            axios.get("/api/destinations"),
+            axios.get("/api/places"),
+          ]
+        );
 
         setUser(userRes.data[0]);
         setDestinations(destinationsRes.data);
@@ -57,7 +59,7 @@ const Home: React.FC = () => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "spring", stiffness: 300, damping: 24 },
+      transition: { type: "spring" as const, stiffness: 300, damping: 24 },
     },
   };
 
@@ -67,19 +69,21 @@ const Home: React.FC = () => {
         <div className="w-16 h-16 relative animate-spin">
           <div className="absolute top-0 left-0 right-0 bottom-0 rounded-full border-4 border-transparent border-t-p-blue border-l-p-blue"></div>
         </div>
-        <p className="mt-4 text-gray-500 animate-pulse">Loading amazing destinations...</p>
+        <p className="mt-4 text-gray-500 animate-pulse">
+          Loading amazing destinations...
+        </p>
       </div>
     );
   }
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-dvh mb-28 bg-white"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      <motion.header 
+      <motion.header
         className="flex justify-between items-center p-5 sticky top-0 z-10 bg-white/80 backdrop-blur-md"
         variants={itemVariants}
       >
@@ -98,7 +102,7 @@ const Home: React.FC = () => {
             <span className="text-p-black font-semibold">{user?.name}</span>
           </div>
         </div>
-        <motion.button 
+        <motion.button
           className="p-2.5 bg-[#F7F7F9] rounded-full hover:bg-gray-100 transition-colors shadow-sm"
           whileTap={{ scale: 0.95 }}
         >
@@ -114,27 +118,38 @@ const Home: React.FC = () => {
       <motion.section className="mb-8 px-5" variants={itemVariants}>
         <h1 className="text-3xl text-gray-700">Explore the</h1>
         <h1 className="text-3xl font-bold text-gray-900">
-          Beautiful <span className="text-p-orange bg-gradient-to-r from-p-orange to-amber-500 bg-clip-text text-transparent">world!</span>
+          Beautiful{" "}
+          <span className="text-p-orange bg-gradient-to-r from-p-orange to-amber-500 bg-clip-text text-transparent">
+            world!
+          </span>
         </h1>
       </motion.section>
 
-      <motion.section 
+      <motion.section
         className="relative mb-10 overflow-visible"
         variants={itemVariants}
       >
         <div className="flex justify-between items-center mb-3 px-5">
-          <h2 className="text-xl font-semibold text-gray-800">Best Destinations</h2>
-          <Link 
-            href="#" 
+          <h2 className="text-xl font-semibold text-gray-800">
+            Best Destinations
+          </h2>
+          <Link
+            href="#"
             className="text-p-orange font-medium flex items-center hover:text-amber-600 transition-colors"
           >
             View all
             <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none">
-              <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M9 6L15 12L9 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </Link>
         </div>
-        
+
         <Swiper
           spaceBetween={16}
           slidesPerView={"auto"}
@@ -154,8 +169,11 @@ const Home: React.FC = () => {
           }}
         >
           {destinations.map((destination, index) => (
-            <SwiperSlide key={destination.id || index} style={{ width: 'auto', maxWidth: '85%' }}>
-              <motion.div 
+            <SwiperSlide
+              key={destination.id || index}
+              style={{ width: "auto", maxWidth: "85%" }}
+            >
+              <motion.div
                 initial={{ scale: 0.95, opacity: 0.8 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.3 }}
@@ -169,18 +187,26 @@ const Home: React.FC = () => {
 
       <motion.section variants={itemVariants}>
         <div className="flex justify-between items-center mb-4 px-5">
-          <h2 className="text-xl font-semibold text-gray-800">Favorite Places</h2>
-          <Link 
-            href="#" 
+          <h2 className="text-xl font-semibold text-gray-800">
+            Favorite Places
+          </h2>
+          <Link
+            href="#"
             className="text-p-orange font-medium flex items-center hover:text-amber-600 transition-colors"
           >
             View all
             <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none">
-              <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M9 6L15 12L9 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </Link>
         </div>
-        
+
         <div className="grid grid-cols-2 gap-4 px-5 lg:grid-cols-4 lg:gap-6">
           {favoritePlaces.map((place, index) => (
             <motion.div
